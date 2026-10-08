@@ -289,7 +289,7 @@ function showToast(message, type = 'success') {
 
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    
+
     let icon = 'ℹ️';
     if (type === 'success') icon = '✅';
     if (type === 'danger') icon = '⚠️';
@@ -369,8 +369,12 @@ function initDashboard() {
     const elActiveAgreements = document.getElementById('statActiveAgreements');
     if (elActiveAgreements) elActiveAgreements.textContent = activeAgreementsCount;
 
+    // Expired card: short number in the big slot, detail in the small line
     const elExpiredAgreements = document.getElementById('statExpiredAgreements');
-    if (elExpiredAgreements) elExpiredAgreements.textContent = `${expiredAgreementsCount} Expired, ${pendingAgreementsCount} Pending`;
+    if (elExpiredAgreements) elExpiredAgreements.textContent = expiredAgreementsCount;
+
+    const elExpiredSub = document.getElementById('statExpiredSub');
+    if (elExpiredSub) elExpiredSub.textContent = `Expired · ${pendingAgreementsCount} Pending`;
 
     const elMonthlyRevenue = document.getElementById('statMonthlyRevenue');
     if (elMonthlyRevenue) elMonthlyRevenue.textContent = formatCurrency(totalMonthlyRevenue);
@@ -432,7 +436,7 @@ function initDashboard() {
             availablePropsBody.innerHTML = availableList.slice(0, 4).map(prop => `
                 <tr>
                     <td><strong>${prop.id}</strong></td>
-                    <td>${prop.name} <span style="color:#64748b; font-size:12px;">(${prop.type})</span></td>
+                    <td>${prop.name} <span style="color:#5b7a72; font-size:13px;">(${prop.type})</span></td>
                     <td>${prop.address}</td>
                     <td>${formatCurrency(prop.rent)}</td>
                     <td>

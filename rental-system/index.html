@@ -75,9 +75,9 @@
             <div class="stat-card">
                 <div class="stat-icon amber">⏳</div>
                 <div class="stat-info">
-                    <h3>Agreements Status</h3>
+                    <h3>Expired Agreements</h3>
                     <div class="stat-number" id="statExpiredAgreements">0</div>
-                    <div class="stat-sub">Pending / Expired Records</div>
+                    <div class="stat-sub" id="statExpiredSub">Expired · 0 Pending</div>
                 </div>
             </div>
 
@@ -141,9 +141,9 @@
         </div>
 
         <!-- Quick Help / Workflow Guide Section -->
-        <div class="card" style="background-color: #f8fafc; border: 1px dashed #cbd5e1;">
-            <h4 style="font-size: 16px; margin-bottom: 8px; color: #1e3a8a;">💡 How the Rental System Works:</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-size: 13px; color: #475569;">
+        <div class="card" style="background-color: #f0fdf4; border: 1px dashed #a7f3d0;">
+            <h4 style="font-size: 18px; margin-bottom: 10px; color: #065f46;">💡 How the Rental System Works:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-size: 15px; color: #3f5f56;">
                 <div>
                     <strong>1. Register Properties:</strong>
                     <p>Add properties along with address, monthly rent, security deposit, and landlord details.</p>
@@ -169,10 +169,5 @@
         <p>&copy; 2026 Rental Agreement Management System | Designed for Property Owners & Tenants</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            initDashboard();
-        });
-    </script>
 </body>
 </html>
