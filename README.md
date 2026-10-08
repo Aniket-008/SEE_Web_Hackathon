@@ -43,9 +43,4 @@ A complete Rental Agreement Management System website has been created in the ne
       • Shared data persistence helpers for localStorage.                                                                                                                                             
       • Real-time date comparison algorithm (calculateAgreementStatus) calculating whether a lease is Active, Pending, or Expired.                                                                    
       • Toast notifications for user actions.                                                                                                                                                         
-      • Unified clean styling with navigation, responsive layout, status badges, and print support.                                                                                                   
-                                                                                                                                                                                                      
-  ──────                                                                                                                                                                                              
-  ### 🚀 How to Run and Test                                                                                                                                                                          
-                                                                                                                                                                                                      
-  You can open index.html directly in any web browser (Chrome, Edge, Firefox) by double-clicking it.
+      • Unified clean styling with navigation, responsive layout, status badges, and print support.                                                                
