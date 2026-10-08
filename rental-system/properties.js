@@ -42,7 +42,7 @@ function initPropertiesPage() {
 }
 
 // ----------------- Add Property Handler -----------------
-async function handleAddProperty(e) {
+function handleAddProperty(e) {
     e.preventDefault();
 
     const nameInput = document.getElementById('propName');
@@ -107,7 +107,7 @@ async function handleAddProperty(e) {
     }
 
     // Generate Unique Property ID
-    const properties = await getProperties();
+    const properties = getProperties();
     let nextNum = 101;
     properties.forEach(p => {
         const match = p.id && p.id.match(/^PROP-(\d+)$/);
@@ -133,26 +133,24 @@ async function handleAddProperty(e) {
     };
 
     properties.push(newProperty);
-    const saved = await saveProperties(properties);
+    saveProperties(properties);
 
-    if (saved) {
-        showToast(`Property "${name}" (${newId}) added successfully!`, "success");
+    showToast(`Property "${name}" (${newId}) added successfully!`, "success");
 
-        // Reset Form
-        e.target.reset();
+    // Reset Form
+    e.target.reset();
 
-        // Re-render table
-        await renderPropertiesTable();
-    }
+    // Re-render table
+    renderPropertiesTable();
 }
 
 // ----------------- Render Properties Table -----------------
-async function renderPropertiesTable() {
+function renderPropertiesTable() {
     const tableBody = document.getElementById('propertiesTableBody');
     const countInfo = document.getElementById('propertyCountInfo');
     if (!tableBody) return;
 
-    const properties = await getProperties();
+    const properties = getProperties();
     const searchQuery = (document.getElementById('propertySearch')?.value || '').trim().toLowerCase();
     const typeValue = document.getElementById('typeFilter')?.value || 'All';
     const statusValue = document.getElementById('statusFilter')?.value || 'All';
@@ -237,8 +235,8 @@ async function renderPropertiesTable() {
 }
 
 // ----------------- Toggle Status -----------------
-async function togglePropertyStatus(propertyId) {
-    const properties = await getProperties();
+function togglePropertyStatus(propertyId) {
+    const properties = getProperties();
     const index = properties.findIndex(p => p.id === propertyId);
     if (index === -1) return;
 
@@ -246,17 +244,15 @@ async function togglePropertyStatus(propertyId) {
     const newStatus = (currentStatus === 'Available') ? 'Rented' : 'Available';
 
     properties[index].status = newStatus;
-    const saved = await saveProperties(properties);
+    saveProperties(properties);
 
-    if (saved) {
-        showToast(`Property ${propertyId} marked as ${newStatus}!`, "info");
-        await renderPropertiesTable();
-    }
+    showToast(`Property ${propertyId} marked as ${newStatus}!`, "info");
+    renderPropertiesTable();
 }
 
 // ----------------- Delete Property -----------------
-async function deleteProperty(propertyId) {
-    const properties = await getProperties();
+function deleteProperty(propertyId) {
+    const properties = getProperties();
     const property = properties.find(p => p.id === propertyId);
     if (!property) return;
 
@@ -273,19 +269,9 @@ async function deleteProperty(propertyId) {
     }
 
     if (confirm(`Are you sure you want to delete property "${property.name}" (${property.id})?`)) {
-        if (typeof db !== 'undefined' && db) {
-            const { error } = await db.from('properties').delete().eq('id', propertyId);
-            if (error) {
-                console.error("Error deleting property from Supabase:", error);
-                showToast("Unable to delete property.", "danger");
-                return;
-            }
-        }
         const updated = properties.filter(p => p.id !== propertyId);
-        const saved = await saveProperties(updated);
-        if (saved) {
-            showToast(`Property "${property.name}" deleted.`, "warning");
-            await renderPropertiesTable();
-        }
+        saveProperties(updated);
+        showToast(`Property "${property.name}" deleted.`, "warning");
+        renderPropertiesTable();
     }
 }

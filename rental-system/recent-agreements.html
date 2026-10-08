@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Agreements - Rental Agreement Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <script src="recent-agreements.js" defer></script>
+</head>
+<body>
+
+    <!-- Main Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">🏢</div>
+                <div class="brand-text">
+                    <h1>RentalDesk</h1>
+                    <span>Rental Agreement Management System</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">📊 Dashboard</a>
+                <a href="recent-agreements.html" class="active">📑 Recent Agreements</a>
+                <a href="properties.html">🏠 Properties</a>
+                <a href="tenants.html">👥 Tenants</a>
+                <a href="agreements.html">📄 Agreements</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Page Title & Header Actions -->
+        <div class="page-header">
+            <div class="page-title">
+                <h2>Recent Rental Agreements</h2>
+                <p>Overview and details of recent tenancy contracts, lease tenures, and digital agreements.</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-outline">← Back to Dashboard</a>
+                <a href="agreements.html" class="btn btn-primary">+ New Agreement</a>
+            </div>
+        </div>
+
+        <!-- KPI Summary Cards for Recent Agreements -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon green">📑</div>
+                <div class="stat-info">
+                    <h3>Recent Agreements</h3>
+                    <div class="stat-number" id="recentTotalCount">0</div>
+                    <div class="stat-sub">Total recorded leases</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon blue">✅</div>
+                <div class="stat-info">
+                    <h3>Active Leases</h3>
+                    <div class="stat-number" id="recentActiveCount">0</div>
+                    <div class="stat-sub">Currently running terms</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon amber">⏳</div>
+                <div class="stat-info">
+                    <h3>Expired / Pending</h3>
+                    <div class="stat-number" id="recentExpiredPendingCount">0</div>
+                    <div class="stat-sub" id="recentExpiredSub">Expired or awaiting term</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon teal">💰</div>
+                <div class="stat-info">
+                    <h3>Monthly Rent Roll</h3>
+                    <div class="stat-number" id="recentMonthlyRevenue">₹0</div>
+                    <div class="stat-sub">From active recent leases</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Agreements Card -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                <h3 class="card-title" style="margin-bottom: 0;">📑 Recent Rental Agreements Directory</h3>
+                <a href="agreements.html" class="btn btn-outline btn-sm">Manage All Agreements in Full Registry →</a>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-bar">
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <input type="text" id="recentSearchInput" placeholder="Search by Agreement ID, Property, or Tenant...">
+                    </div>
+                    <select id="recentStatusFilter" class="filter-select">
+                        <option value="All">All Statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Pending">Pending / Upcoming</option>
+                        <option value="Expired">Expired</option>
+                        <option value="Terminated">Terminated</option>
+                    </select>
+                    <button type="button" class="btn btn-outline btn-sm" id="recentResetFilterBtn">Reset Filters</button>
+                </div>
+                <div class="filter-info" id="recentCountInfo">
+                    Showing 0 agreements
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Agreement ID</th>
+                            <th>Property</th>
+                            <th>Tenant</th>
+                            <th>Term Period</th>
+                            <th>Monthly Rent</th>
+                            <th>Security Deposit</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentAgreementsFullBody">
+                        <!-- Populated dynamically by recent-agreements.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Viewing & Printing Full Legal Agreement -->
+    <div class="modal-overlay" id="agreementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Rental Agreement Details</h3>
+                <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalPrintArea">
+                <!-- Formal Legal Contract Document rendered by recent-agreements.js -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" id="modalCloseFooterBtn">Close</button>
+                <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ Print Agreement</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rental Agreement Management System | Designed for Property Owners & Tenants</p>
+    </footer>
+
+</body>
+</html>

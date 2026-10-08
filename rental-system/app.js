@@ -155,59 +155,22 @@ function initSystemStorage() {
 }
 
 // Ensure storage is initialized as soon as app.js is loaded
-//initSystemStorage();
+initSystemStorage();
 
 // Property storage helpers
-// Property storage helpers - Supabase
-async function getProperties() {
-    const { data, error } = await db
-        .from('properties')
-        .select('*')
-        .order('id', { ascending: true });
-
-    if (error) {
-        console.error("Error reading properties from Supabase:", error);
-        showToast("Unable to load properties.", "danger");
+function getProperties() {
+    if (typeof localStorage === 'undefined') return [];
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEYS.PROPERTIES)) || [];
+    } catch (e) {
+        console.error("Error reading properties from storage", e);
         return [];
     }
-
-    return data.map(property => ({
-        id: property.id,
-        name: property.name,
-        type: property.type,
-        address: property.address,
-        rent: property.rent,
-        deposit: property.deposit,
-        ownerName: property.owner_name,
-        ownerContact: property.owner_contact,
-        status: property.status
-    }));
 }
 
-async function saveProperties(properties) {
-    const rows = properties.map(property => ({
-        id: property.id,
-        name: property.name,
-        type: property.type,
-        address: property.address,
-        rent: Number(property.rent),
-        deposit: Number(property.deposit),
-        owner_name: property.ownerName,
-        owner_contact: property.ownerContact,
-        status: property.status
-    }));
-
-    const { error } = await db
-        .from('properties')
-        .upsert(rows);
-
-    if (error) {
-        console.error("Error saving properties to Supabase:", error);
-        showToast("Unable to save properties.", "danger");
-        return false;
-    }
-
-    return true;
+function saveProperties(properties) {
+    if (typeof localStorage === 'undefined') return;
+    localStorage.setItem(STORAGE_KEYS.PROPERTIES, JSON.stringify(properties));
 }
 
 // Tenant storage helpers

@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Rental Agreement Management System</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
-<script src="app.js" defer></script>
+    <script src="app.js" defer></script>
 </head>
 <body>
 
@@ -23,6 +21,7 @@
             </a>
             <nav>
                 <a href="index.html" class="active">📊 Dashboard</a>
+                <a href="recent-agreements.html">📑 Recent Agreements</a>
                 <a href="properties.html">🏠 Properties</a>
                 <a href="tenants.html">👥 Tenants</a>
                 <a href="agreements.html">📄 Agreements</a>
@@ -39,7 +38,8 @@
                 <p>Monitor your rental agreements, vacant properties, tenants, and monthly revenue in real time.</p>
             </div>
             <div class="header-actions">
-                <a href="agreements.html" class="btn btn-primary">+ New Agreement</a>
+                <a href="recent-agreements.html" class="btn btn-primary">Recent Agreements</a>
+                <a href="agreements.html" class="btn btn-outline">+ New Agreement</a>
                 <a href="properties.html" class="btn btn-outline">+ Add Property</a>
                 <button type="button" class="btn btn-outline btn-sm" onclick="resetSampleData()" title="Reload sample demonstration data">↺ Reset Demo Data</button>
             </div>
@@ -90,31 +90,6 @@
                     <div class="stat-number" id="statMonthlyRevenue">₹0</div>
                     <div class="stat-sub">From Active Agreements</div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Recent Agreements Card -->
-        <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h3 class="card-title" style="margin-bottom: 0;">📑 Recent Rental Agreements</h3>
-                <a href="agreements.html" class="btn btn-outline btn-sm">View All Agreements →</a>
-            </div>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Agreement ID</th>
-                            <th>Property</th>
-                            <th>Tenant</th>
-                            <th>Term Period</th>
-                            <th>Monthly Rent</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="recentAgreementsBody">
-                        <!-- Populated dynamically by app.js -->
-                    </tbody>
-                </table>
             </div>
         </div>
 
