@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Rental Agreement Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <!-- Main Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">🏢</div>
+                <div class="brand-text">
+                    <h1>RentalDesk</h1>
+                    <span>Rental Agreement Management System</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html" class="active">📊 Dashboard</a>
+                <a href="properties.html">🏠 Properties</a>
+                <a href="tenants.html">👥 Tenants</a>
+                <a href="agreements.html">📄 Agreements</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Page Title & Header Actions -->
+        <div class="page-header">
+            <div class="page-title">
+                <h2>Overview Dashboard</h2>
+                <p>Monitor your rental agreements, vacant properties, tenants, and monthly revenue in real time.</p>
+            </div>
+            <div class="header-actions">
+                <a href="agreements.html" class="btn btn-primary">+ New Agreement</a>
+                <a href="properties.html" class="btn btn-outline">+ Add Property</a>
+                <button type="button" class="btn btn-outline btn-sm" onclick="resetSampleData()" title="Reload sample demonstration data">↺ Reset Demo Data</button>
+            </div>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">🏠</div>
+                <div class="stat-info">
+                    <h3>Total Properties</h3>
+                    <div class="stat-number" id="statTotalProps">0</div>
+                    <div class="stat-sub" id="statAvailableProps">0 Available / 0 Rented</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">👥</div>
+                <div class="stat-info">
+                    <h3>Registered Tenants</h3>
+                    <div class="stat-number" id="statTotalTenants">0</div>
+                    <div class="stat-sub">Verified Tenant Profiles</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">📄</div>
+                <div class="stat-info">
+                    <h3>Active Agreements</h3>
+                    <div class="stat-number" id="statActiveAgreements">0</div>
+                    <div class="stat-sub">Legally Active Leases</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon amber">⏳</div>
+                <div class="stat-info">
+                    <h3>Agreements Status</h3>
+                    <div class="stat-number" id="statExpiredAgreements">0</div>
+                    <div class="stat-sub">Pending / Expired Records</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon teal">💰</div>
+                <div class="stat-info">
+                    <h3>Monthly Rent Roll</h3>
+                    <div class="stat-number" id="statMonthlyRevenue">₹0</div>
+                    <div class="stat-sub">From Active Agreements</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Agreements Card -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 class="card-title" style="margin-bottom: 0;">📑 Recent Rental Agreements</h3>
+                <a href="agreements.html" class="btn btn-outline btn-sm">View All Agreements →</a>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Agreement ID</th>
+                            <th>Property</th>
+                            <th>Tenant</th>
+                            <th>Term Period</th>
+                            <th>Monthly Rent</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentAgreementsBody">
+                        <!-- Populated dynamically by app.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Available Properties Ready for Lease Card -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 class="card-title" style="margin-bottom: 0;">🏡 Available Properties (Ready for Lease)</h3>
+                <a href="properties.html" class="btn btn-outline btn-sm">Manage Properties →</a>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property ID</th>
+                            <th>Property Name & Type</th>
+                            <th>Location / Address</th>
+                            <th>Expected Rent</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="availablePropsBody">
+                        <!-- Populated dynamically by app.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quick Help / Workflow Guide Section -->
+        <div class="card" style="background-color: #f8fafc; border: 1px dashed #cbd5e1;">
+            <h4 style="font-size: 16px; margin-bottom: 8px; color: #1e3a8a;">💡 How the Rental System Works:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-size: 13px; color: #475569;">
+                <div>
+                    <strong>1. Register Properties:</strong>
+                    <p>Add properties along with address, monthly rent, security deposit, and landlord details.</p>
+                </div>
+                <div>
+                    <strong>2. Register Tenants:</strong>
+                    <p>Enter tenant credentials, ID documents (Aadhaar / PAN / Passport), and emergency contact.</p>
+                </div>
+                <div>
+                    <strong>3. Create Agreement:</strong>
+                    <p>Select property and tenant to generate 11-month or customized rental agreement with auto status tracking.</p>
+                </div>
+                <div>
+                    <strong>4. Digital Contract:</strong>
+                    <p>View, print, or terminate agreements. When terminated, properties automatically become available again.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rental Agreement Management System | Designed for Property Owners & Tenants</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+        });
+    </script>
+</body>
+</html>

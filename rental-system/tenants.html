@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenants - Rental Agreement Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <script src="tenants.js" defer></script>
+</head>
+<body>
+
+    <!-- Main Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">🏢</div>
+                <div class="brand-text">
+                    <h1>RentalDesk</h1>
+                    <span>Rental Agreement Management System</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">📊 Dashboard</a>
+                <a href="properties.html">🏠 Properties</a>
+                <a href="tenants.html" class="active">👥 Tenants</a>
+                <a href="agreements.html">📄 Agreements</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Page Title & Header Actions -->
+        <div class="page-header">
+            <div class="page-title">
+                <h2>Tenant Management</h2>
+                <p>Register new tenants, record official identification details, and track lease affiliations.</p>
+            </div>
+            <div class="header-actions">
+                <a href="agreements.html" class="btn btn-outline btn-sm">Go to Agreements →</a>
+            </div>
+        </div>
+
+        <!-- Register Tenant Form Card -->
+        <div class="card">
+            <h3 class="card-title">➕ Register New Tenant</h3>
+            <form id="addTenantForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="tenantName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="tenantName" placeholder="e.g. Arjun Mehta" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenantEmail">Email Address <span class="required">*</span></label>
+                        <input type="email" id="tenantEmail" placeholder="e.g. arjun.mehta@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenantPhone">Primary Mobile Number (10 Digits) <span class="required">*</span></label>
+                        <input type="tel" id="tenantPhone" maxlength="10" placeholder="e.g. 9871122334" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenantIdType">Government ID Type <span class="required">*</span></label>
+                        <select id="tenantIdType" required>
+                            <option value="">Select ID Proof Type</option>
+                            <option value="Aadhaar Card">Aadhaar Card</option>
+                            <option value="PAN Card">PAN Card</option>
+                            <option value="Passport">Passport</option>
+                            <option value="Driving License">Driving License</option>
+                            <option value="Voter ID">Voter ID</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenantIdNumber">ID Document Number <span class="required">*</span></label>
+                        <input type="text" id="tenantIdNumber" placeholder="e.g. 5412-8976-1234 or ABCPN1234F" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenantOccupation">Profession / Occupation <span class="required">*</span></label>
+                        <input type="text" id="tenantOccupation" placeholder="e.g. Software Engineer / Student" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenantEmergency">Emergency Contact Number (10 Digits) <span class="required">*</span></label>
+                        <input type="tel" id="tenantEmergency" maxlength="10" placeholder="e.g. 9871199887" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-outline">Clear Form</button>
+                    <button type="submit" class="btn btn-primary" id="saveTenantBtn">Register Tenant</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tenant Directory & Search -->
+        <div class="card">
+            <h3 class="card-title">👥 Tenants Directory</h3>
+            
+            <div class="filter-bar">
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <input type="text" id="tenantSearch" placeholder="Search by name, email, mobile, or ID number...">
+                    </div>
+                    <button type="button" class="btn btn-outline btn-sm" id="resetTenantSearchBtn">Clear Search</button>
+                </div>
+                <div class="filter-info" id="tenantCountInfo">
+                    Showing 0 tenants
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tenant ID</th>
+                            <th>Full Name</th>
+                            <th>Contact Information</th>
+                            <th>ID Proof & Number</th>
+                            <th>Occupation</th>
+                            <th>Emergency Contact</th>
+                            <th>Active Agreement</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tenantsTableBody">
+                        <!-- Populated dynamically by tenants.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rental Agreement Management System | Designed for Property Owners & Tenants</p>
+    </footer>
+
+</body>
+</html>

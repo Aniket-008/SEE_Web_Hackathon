@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties - Rental Agreement Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <script src="properties.js" defer></script>
+</head>
+<body>
+
+    <!-- Main Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">🏢</div>
+                <div class="brand-text">
+                    <h1>RentalDesk</h1>
+                    <span>Rental Agreement Management System</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">📊 Dashboard</a>
+                <a href="properties.html" class="active">🏠 Properties</a>
+                <a href="tenants.html">👥 Tenants</a>
+                <a href="agreements.html">📄 Agreements</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Page Title & Header Actions -->
+        <div class="page-header">
+            <div class="page-title">
+                <h2>Property Management</h2>
+                <p>Register new real-estate properties and manage occupancy status.</p>
+            </div>
+            <div class="header-actions">
+                <a href="agreements.html" class="btn btn-outline btn-sm">Go to Agreements →</a>
+            </div>
+        </div>
+
+        <!-- Add Property Form Card -->
+        <div class="card">
+            <h3 class="card-title">➕ Add New Property</h3>
+            <form id="addPropertyForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="propName">Property Name / Unit <span class="required">*</span></label>
+                        <input type="text" id="propName" placeholder="e.g. Greenfield Residency #402" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propType">Property Type <span class="required">*</span></label>
+                        <select id="propType" required>
+                            <option value="">Select Property Type</option>
+                            <option value="Apartment">Apartment (Flat)</option>
+                            <option value="Independent House">Independent House</option>
+                            <option value="Villa">Villa / Bungalow</option>
+                            <option value="Studio">Studio Apartment</option>
+                            <option value="Commercial Shop">Commercial Shop / Office</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propRent">Monthly Rent (₹) <span class="required">*</span></label>
+                        <input type="number" id="propRent" min="500" step="500" placeholder="e.g. 25000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propDeposit">Security Deposit (₹) <span class="required">*</span></label>
+                        <input type="number" id="propDeposit" min="0" step="1000" placeholder="e.g. 100000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ownerName">Property Owner Name <span class="required">*</span></label>
+                        <input type="text" id="ownerName" placeholder="e.g. Rajesh Sharma" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ownerContact">Owner Contact Phone (10 Digits) <span class="required">*</span></label>
+                        <input type="tel" id="ownerContact" maxlength="10" placeholder="e.g. 9876543210" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propStatus">Initial Status <span class="required">*</span></label>
+                        <select id="propStatus" required>
+                            <option value="Available" selected>Available (Vacant)</option>
+                            <option value="Rented">Rented (Occupied)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="propAddress">Complete Address / Location <span class="required">*</span></label>
+                        <textarea id="propAddress" rows="2" placeholder="e.g. 4th Floor, 80ft Road, Koramangala 4th Block, Bengaluru, 560034" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-outline">Clear Form</button>
+                    <button type="submit" class="btn btn-primary" id="savePropertyBtn">Add Property</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Property Directory & Filters -->
+        <div class="card">
+            <h3 class="card-title">📋 Properties Directory</h3>
+            
+            <div class="filter-bar">
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <input type="text" id="propertySearch" placeholder="Search by name, address, or owner...">
+                    </div>
+                    <select id="typeFilter" class="filter-select">
+                        <option value="All">All Types</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Independent House">Independent House</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Studio">Studio</option>
+                        <option value="Commercial Shop">Commercial Shop</option>
+                    </select>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="All">All Statuses</option>
+                        <option value="Available">Available (Vacant)</option>
+                        <option value="Rented">Rented (Occupied)</option>
+                    </select>
+                    <button type="button" class="btn btn-outline btn-sm" id="resetFilterBtn">Reset Filters</button>
+                </div>
+                <div class="filter-info" id="propertyCountInfo">
+                    Showing 0 properties
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property ID</th>
+                            <th>Property & Type</th>
+                            <th>Location / Address</th>
+                            <th>Monthly Rent</th>
+                            <th>Security Deposit</th>
+                            <th>Owner Details</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="propertiesTableBody">
+                        <!-- Populated by properties.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rental Agreement Management System | Designed for Property Owners & Tenants</p>
+    </footer>
+
+</body>
+</html>

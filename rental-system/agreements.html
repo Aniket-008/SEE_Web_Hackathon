@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agreements - Rental Agreement Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <script src="agreements.js" defer></script>
+</head>
+<body>
+
+    <!-- Main Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">🏢</div>
+                <div class="brand-text">
+                    <h1>RentalDesk</h1>
+                    <span>Rental Agreement Management System</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">📊 Dashboard</a>
+                <a href="properties.html">🏠 Properties</a>
+                <a href="tenants.html">👥 Tenants</a>
+                <a href="agreements.html" class="active">📄 Agreements</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Page Title & Header Actions -->
+        <div class="page-header">
+            <div class="page-title">
+                <h2>Rental Agreements</h2>
+                <p>Create digital tenancy agreements, monitor lease lifecycles, and print legal contracts.</p>
+            </div>
+            <div class="header-actions">
+                <a href="#agreementsTableCard" class="btn btn-outline btn-sm">Jump to Agreements Table ↓</a>
+            </div>
+        </div>
+
+        <!-- Create Agreement Form Card -->
+        <div class="card">
+            <h3 class="card-title">➕ Create New Rental Agreement</h3>
+            <form id="createAgreementForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="selectProperty">Select Property <span class="required">*</span></label>
+                        <select id="selectProperty" required>
+                            <option value="">-- Choose a Property --</option>
+                            <!-- Dynamically populated -->
+                        </select>
+                        <small id="propertyStatusHint" style="font-size: 12px; color: #64748b;"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectTenant">Select Tenant <span class="required">*</span></label>
+                        <select id="selectTenant" required>
+                            <option value="">-- Choose a Registered Tenant --</option>
+                            <!-- Dynamically populated -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agrStartDate">Agreement Start Date <span class="required">*</span></label>
+                        <input type="date" id="agrStartDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agrEndDate">Agreement End Date <span class="required">*</span></label>
+                        <input type="date" id="agrEndDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agrRent">Agreed Monthly Rent (₹) <span class="required">*</span></label>
+                        <input type="number" id="agrRent" min="500" step="500" placeholder="Auto-filled from property" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agrDeposit">Security Deposit (₹) <span class="required">*</span></label>
+                        <input type="number" id="agrDeposit" min="0" step="1000" placeholder="Auto-filled from property" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agrFrequency">Payment Frequency <span class="required">*</span></label>
+                        <select id="agrFrequency" required>
+                            <option value="Monthly" selected>Monthly</option>
+                            <option value="Quarterly">Quarterly</option>
+                            <option value="Bi-Annually">Bi-Annually</option>
+                            <option value="Annually">Annually</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="agrTerms">Terms, Conditions & Special Clauses <span class="required">*</span></label>
+                        <textarea id="agrTerms" rows="3" placeholder="Enter standard terms and lock-in agreement..." required>Standard 11-month rental term. Rent payable on or before the 5th day of every calendar month. One month advance written notice required prior to vacating. Electricity and utility bills to be paid by tenant. Premises shall be used exclusively for lawful residential/commercial purposes.</textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-outline">Clear Form</button>
+                    <button type="submit" class="btn btn-primary" id="saveAgreementBtn">Generate Rental Agreement</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Agreements Table & Filters -->
+        <div class="card" id="agreementsTableCard">
+            <h3 class="card-title">📑 Agreement Records & History</h3>
+
+            <div class="filter-bar">
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <input type="text" id="agreementSearch" placeholder="Search by ID, property, or tenant name...">
+                    </div>
+                    <select id="agreementStatusFilter" class="filter-select">
+                        <option value="All">All Statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Pending">Pending / Upcoming</option>
+                        <option value="Expired">Expired</option>
+                        <option value="Terminated">Terminated</option>
+                    </select>
+                    <button type="button" class="btn btn-outline btn-sm" id="resetAgreementFiltersBtn">Reset Filters</button>
+                </div>
+                <div class="filter-info" id="agreementCountInfo">
+                    Showing 0 agreements
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Agreement ID</th>
+                            <th>Property Unit</th>
+                            <th>Tenant</th>
+                            <th>Tenure Period</th>
+                            <th>Monthly Rent</th>
+                            <th>Security Deposit</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agreementsTableBody">
+                        <!-- Populated dynamically by agreements.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Viewing & Printing Full Legal Agreement -->
+    <div class="modal-overlay" id="agreementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Rental Agreement Details</h3>
+                <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalPrintArea">
+                <!-- Formal Legal Contract Document rendered by agreements.js -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" id="modalCloseFooterBtn">Close</button>
+                <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ Print Agreement</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rental Agreement Management System | Designed for Property Owners & Tenants</p>
+    </footer>
+
+</body>
+</html>
